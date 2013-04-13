@@ -56,3 +56,5 @@ D:\MacHack2013\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInf
 D:\MacHack2013\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInfoWeb\bin\WebMatrix.Data.xml
 D:\MacHack2013\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInfoWeb\bin\WebMatrix.WebData.dll
 D:\MacHack2013\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInfoWeb\bin\WebMatrix.WebData.xml
+C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BooksVisualInfoCloud\bin\Debug\ServiceConfiguration.cscfg
+C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BooksVisualInfoCloud\bin\Debug\ServiceDefinition.csdef

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
-using BookVisualInfoWeb.Models;
+using HackFive.BookVisualInfoWeb.Models;
 
-namespace BookVisualInfoWeb
+namespace HackFive.BookVisualInfoWeb
 {
 	public static class AuthConfig
 	{

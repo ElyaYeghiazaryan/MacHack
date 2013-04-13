@@ -1,8 +1,36 @@
-Freebase .Net API
-https://code.google.com/p/freebase-dotnet/
+Goals:
+######
+To provide the end user with a means of discovering noew books in a variety of genres
+in an easy to use visualization.
+
+API'S In Order Considered:
+- Freebase
+- GoodReads
+- Google Books
+
+Reasons for choice of API:
+##########################
+We ended up going with the google api last minute.  This was because the freebase was 
+user driven and lacked the abilitY for us to take interesting information like ratings
+and reviewes.
+
+Good reads had similiar information and quite possible a larger number of options but 
+would only allow us to run any one api call once persecond limiting the sacalability
+of the application.
+
+Google API Example service calls:
+#################################
 
 
-Book Topic:
-- Editions /book/book/editions
-- Genre /book/book/genre
-http://www.freebase.com/book/book?schema=
+
+
+
+References: 
+###########
+GOOD READS:
+api: http://www.goodreads.com/api
+terms: http://www.goodreads.com/api/terms
+
+FREEBASE: 
+Freebase .Net API: https://code.google.com/p/freebase-dotnet/
+Book Topics: http://www.freebase.com/book/book?schema=

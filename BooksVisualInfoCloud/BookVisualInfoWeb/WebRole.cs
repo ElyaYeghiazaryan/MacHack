@@ -5,7 +5,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 
-namespace BookVisualInfoWeb
+namespace HackFive.BookVisualInfoWeb
 {
 	public class WebRole : RoleEntryPoint
 	{

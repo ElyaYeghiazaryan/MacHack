@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace BookVisualInfoWeb
+namespace HackFive.BookVisualInfoWeb
 {
 	public class FilterConfig
 	{
