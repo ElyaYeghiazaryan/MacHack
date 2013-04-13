@@ -1,15 +1,24 @@
-﻿        <div class="container-fluid">
+﻿      <div class="container-fluid">
           <div class="row-fluid" id="main_container">
-            <div class="span2" id="left_scroller">
+            <div class="span1" id="left_scroller" style="background-color:#C8C8C8">
                 
             </div>
             <div class="span10">
-              <div class="span10" id="top_scroller">
-              
-              </div>
-              <div class="span10" id="graph_container">
-              
-              </div>
+                <div class="span11" id="top_scroller" style="background-color:#E8E8E8 ">
+                </div>
+                <div class="span10" id="graph_container">
+                    
+                </div>
             </div>
           </div>
         </div>
+
+	@section scripts {
+		<script src='@Url.Content("~/Scripts/libs/bootstrap/js/bootstrap.min.js")'></script>
+	}
+
+
+	@section styles
+	{
+		<link rel="stylesheet" href='@Url.Content("~/Scripts/libs/bootstrap/css/bootstrap.min.css")'>
+	}
