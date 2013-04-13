@@ -1,0 +1,8 @@
+Freebase .Net API
+https://code.google.com/p/freebase-dotnet/
+
+
+Book Topic:
+- Editions /book/book/editions
+- Genre /book/book/genre
+http://www.freebase.com/book/book?schema=
