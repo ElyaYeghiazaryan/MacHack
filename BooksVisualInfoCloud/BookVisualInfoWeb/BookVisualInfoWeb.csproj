@@ -182,6 +182,8 @@
     <Compile Include="Models\FilterCriteria.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\GenreFilter.cs" />
+    <Compile Include="Models\GoogleBooksModel.cs" />
+    <Compile Include="Models\GoogleJsonModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
