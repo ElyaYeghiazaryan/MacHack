@@ -183,18 +183,24 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\libs\bootstrap.js" />
-    <Content Include="Scripts\libs\bootstrap.min.js" />
+    <Content Include="Scripts\graph.js" />
+    <Content Include="Scripts\libs\bootstrap\css\bootstrap.css" />
+    <Content Include="Scripts\libs\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Scripts\libs\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Scripts\libs\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Scripts\libs\bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap\js\bootstrap.min.js" />
     <Content Include="Scripts\libs\jquery.js" />
+    <Content Include="Scripts\libs\knockout.js" />
     <Content Include="Scripts\libs\sigma.forceatlas2.js" />
     <Content Include="Scripts\libs\sigma.js" />
     <Content Include="Scripts\libs\underscore.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\rest.js" />
+    <Content Include="Scripts\topNavViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

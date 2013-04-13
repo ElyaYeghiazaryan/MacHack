@@ -1,16 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
     <head>
-	
-	
 	 <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-     <title>Awsome books</title>
-	@Styles.Render("~/Content/css/main")
-	@Styles.Render("~/Content/css/bootstrap")
-		@* <link rel="stylesheet" href="css/main.css">*@
-        @*<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">*@
-
+     <title>Awesome books</title>
+	 @Styles.Render("~/Content/css/main")
+	 @RenderSection("styles", required: false)
+@*	 @Styles.Render("~/Script/libs/bootstrap/css")*@
     </head>
     <body>
         
