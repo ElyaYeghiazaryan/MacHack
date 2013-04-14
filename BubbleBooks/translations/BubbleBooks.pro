@@ -1,0 +1,1 @@
+include (../BubbleBooks.pro)
