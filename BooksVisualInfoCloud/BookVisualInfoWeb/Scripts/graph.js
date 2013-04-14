@@ -63,6 +63,7 @@
 
     App.sigma.combineInClusters = function (key) {
         clusters = [];
+        all_nodes = [];
         var filter_ids = []; var i = 0;
         _.each(books, function (book) {
             var filter_id = book[key]; // genre_id value
