@@ -24,24 +24,24 @@
 	App.rest.fetchBookData = function () {
 		var url = siteRoot + 'Home/GetBookData';
 		var data = {};
-		//return rest(url, {});
+		return rest(url, {});
 	}
 
 	App.rest.fetchGenres = function () {
 		var url = siteRoot + 'Home/GetGanres';
-		//return rest(url, {});
+		return rest(url, {});
 	}
 
 	App.rest.fetchAllFilters = function () {
 		var url = siteRoot + 'Home/GetFilters';
-		//return rest(url, {});
+		return rest(url, {});
 	}
 
 	App.rest.fetchBook = function () {
 		var url = siteRoot + 'Home/GetBookData';
 		var bookId = 1;
 		var data = { BookId: bookId };
-		//return rest(url, data);
+		return rest(url, data);
 	}
 
 

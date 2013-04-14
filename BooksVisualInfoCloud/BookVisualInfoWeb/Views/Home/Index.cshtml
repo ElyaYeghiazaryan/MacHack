@@ -7,9 +7,8 @@
         <div id="wrapper">
             <div id="mainNav">
                 <a href="#"><div id="bookmark">Yeah</div></a>
-                <ul id="navList">
-                    <li><a href="#">Favorites</a></li>
-                    <li><a href="#">YeahBuddy</a></li>
+                <ul id="navList" data-bind="foreach: filters">
+                    <li><a href="#" data-bind="text: $data, click: $parent.top_filter"></a></li>                    
                 </ul>
                 <img id="logo" src='@Url.Content("Images/assets/logo.png")'>
             </div>

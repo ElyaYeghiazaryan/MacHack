@@ -1,9 +1,9 @@
-(function() {
+(function () {
 
-	App.viewModels.topNavViewModel = function() {
-		var self = this;
+    App.viewModels.topNavViewModel = function () {
+        var self = this;
 
-		self.filters = [];
-	}
+        
+    }
 
 })();
