@@ -16,17 +16,24 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 		public ActionResult Index()
 		{
-			GetBooksFromGoogle(null);
+			//GetBooksFromGoogle(null);
 			return View();
 		}
+		
+		[HttpGet]
+		public JsonResult GetAllBooks()
+		{
+			return Json(GetBooksFromGoogle(null), JsonRequestBehavior.AllowGet);
+		}
+
+
 		[HttpGet]
 		public JsonResult GetBooks(FilterCriteria criteria)
 		{
 			var bookList = new List<BookModel>();	// No need to actually properly cast this as it's being returned as a json result.
-
 			if (criteria == null)
-			{ 
-				
+			{
+				return Json(GetBooksFromGoogle(criteria), JsonRequestBehavior.AllowGet);
 			}
 			return Json(bookList, JsonRequestBehavior.AllowGet);
 		}
@@ -67,8 +74,8 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 					string author = "Unknown";
 
 					if (result.Authors != null) author = result.Authors.Length > 0 ? String.Join(",", result.Authors) : result.Authors[0];
-					if (result.averageRating != null)	float.TryParse(result.averageRating, out averageRating);
-					if (result.Genres != null && result.Genres.Length > 0)	Enum.TryParse<GenreTypesEnum>(result.Genres[0], out genreType);
+					if (result.averageRating != null) float.TryParse(result.averageRating, out averageRating);
+					if (result.Genres != null && result.Genres.Length > 0) Enum.TryParse<GenreTypesEnum>(result.Genres[0], out genreType);
 
 					books.Add(newBook);
 				}
