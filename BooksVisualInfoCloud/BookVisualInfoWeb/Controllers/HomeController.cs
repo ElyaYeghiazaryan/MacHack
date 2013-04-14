@@ -34,14 +34,21 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			//GetBooksFromGoogle(null);
 			return View();
 		}
+		
+		[HttpGet]
+		public JsonResult GetAllBooks()
+		{
+			return Json(GetBooksFromGoogle(null), JsonRequestBehavior.AllowGet);
+		}
+
+
 		[HttpGet]
 		public JsonResult GetBooks(FilterCriteria criteria)
 		{
 			var bookList = new List<BookModel>();	// No need to actually properly cast this as it's being returned as a json result.
-
 			if (criteria == null)
-			{ 
-				
+			{
+				return Json(GetBooksFromGoogle(criteria), JsonRequestBehavior.AllowGet);
 			}
 			return Json(bookList, JsonRequestBehavior.AllowGet);
 		}
