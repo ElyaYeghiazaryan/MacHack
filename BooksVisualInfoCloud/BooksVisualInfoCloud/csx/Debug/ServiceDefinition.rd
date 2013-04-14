@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BooksVisualInfoCloud" generation="1" functional="0" release="0" Id="c98f0558-f464-48e0-b6de-b7aa0b2433c5" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BooksVisualInfoCloud" generation="1" functional="0" release="0" Id="d065c1e2-b0ec-4214-a000-34205cb3a731" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="BooksVisualInfoCloudGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -70,9 +70,9 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="d62121e5-36bb-4c35-9fbd-921a1b20d67d" ref="Microsoft.RedDog.Contract\ServiceContract\BooksVisualInfoCloudContract@ServiceDefinition">
+    <implementation Id="15faf5b5-5fce-45ec-b16a-53a1d1433f9a" ref="Microsoft.RedDog.Contract\ServiceContract\BooksVisualInfoCloudContract@ServiceDefinition">
       <interfacereferences>
-        <interfaceReference Id="2579b909-9d56-488c-9b5e-4d0dfd339d72" ref="Microsoft.RedDog.Contract\Interface\BookVisualInfoWeb:Endpoint1@ServiceDefinition">
+        <interfaceReference Id="4b18c022-f4af-4227-857b-2c4aae502abd" ref="Microsoft.RedDog.Contract\Interface\BookVisualInfoWeb:Endpoint1@ServiceDefinition">
           <inPort>
             <inPortMoniker name="/BooksVisualInfoCloud/BooksVisualInfoCloudGroup/BookVisualInfoWeb:Endpoint1" />
           </inPort>
