@@ -8,7 +8,8 @@ namespace HackFive.BookVisualInfoWeb.Models
 	public class GoogleJsonModel
 	{
 		public long totalItems { get; set; }
-		public GoogleBooksModel[] items { get; set; }
+		//public GoogleBooksModel[] items { get; set; }
+		public object[] items { get; set; }
 
 		public GoogleJsonModel()
 		{

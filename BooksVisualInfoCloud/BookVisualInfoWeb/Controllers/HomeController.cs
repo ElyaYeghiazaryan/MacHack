@@ -5,6 +5,7 @@ using HackFive.BookVisualInfoWeb.Models;
 using System.IO;
 using System;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace HackFive.BookVisualInfoWeb.Controllers
 {
@@ -51,7 +52,9 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 			string googJson = MakeGetRequest(googleUri);
 			JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-			var jsonResult = (GoogleJsonModel)jsonSerializer.DeserializeObject(googJson);
+
+			//var jsonResult = (GoogleJsonModel)jsonSerializer.DeserializeObject(googJson);
+			var jsonResult = JsonConvert.DeserializeObject<GoogleJsonModel>(googJson);
 
 			return googJson;
 		}
@@ -75,7 +78,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			{
 				if (response.StatusCode != HttpStatusCode.OK)
 				{
-					var message = String.Format("Goog Request failed. Recieved Response {0}", response.StatusCode);
+					var message = String.Format("Goog Request failed. Received Response {0}", response.StatusCode);
 					throw new ApplicationException(message);
 				}
 
