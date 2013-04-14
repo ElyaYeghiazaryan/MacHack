@@ -114,7 +114,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 					if (result.Genres != null && result.Genres.Length > 0)
 					{
-						newBook.GenreType = getFirstGenre(result.Genres);
+						//newBook.GenreType = getFirstGenre(result.Genres);
 						newBook.Genre = String.Join(",", result.Genres);
 					}
 					newBook.Author = author;
@@ -132,7 +132,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 		private GenreTypesEnum getFirstGenre(string[] genres)
 		{
-			GenreTypesEnum firstGenre;
+			GenreTypesEnum firstGenre = GenreTypesEnum.Others;
 			foreach (var genre in genres)
 			{
 				if (Enum.TryParse<GenreTypesEnum>(genre.Replace(' ', '_'), out firstGenre))
