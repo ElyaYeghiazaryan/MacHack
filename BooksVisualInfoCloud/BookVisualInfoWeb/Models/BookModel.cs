@@ -10,6 +10,7 @@ namespace HackFive.BookVisualInfoWeb.Models
 	/// </summary>
 	public class BookModel
 	{
+		public string Id { get; set; }
 		public string Title { get; set; }
 		public string Genre { get; set; }
 		public GenreTypesEnum GenreType { get; set; }

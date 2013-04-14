@@ -7,7 +7,10 @@ namespace HackFive.BookVisualInfoWeb.Models
 {
 	public class GoogleBooksModel
 	{
+		public string id { get; set; }
 		public VolumeInfo volumeInfo { get; set; }
+		public string averageRating { get; set; }
+
 		
 		public string Title { get { return volumeInfo.title; } }
 		public string[] Authors { get { return volumeInfo.authors; } }
