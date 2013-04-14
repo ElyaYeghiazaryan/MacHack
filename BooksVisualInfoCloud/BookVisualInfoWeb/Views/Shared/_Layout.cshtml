@@ -4,18 +4,30 @@
 	 <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
      <title>Awesome books</title>
-	 @Styles.Render("~/Content/css/main")
+	 @Styles.Render("~/Content/css")
 	 @RenderSection("styles", required: false)
 @*	 @Styles.Render("~/Script/libs/bootstrap/css")*@
     </head>
-    <body>
+    <body onload="init()">
         
         @RenderBody()
-      
+    @*  
 		@Scripts.Render("~/Scripts/libs")
-		@Scripts.Render("~/Scripts/main")
+		@Scripts.Render("~/Scripts/main")*@
 
-		@RenderSection("scripts", required: false)
+		@Scripts.Render("~/Scripts/libs/underscore.js");
+		@Scripts.Render("~/Scripts/libs/knockout.js");
+		@Scripts.Render("~/Scripts/libs/modernizr-2.6.2.min.js");
+		@Scripts.Render("~/Scripts/libs/sigma.min.js");
+		@Scripts.Render("~/Scripts/libs/sigma.forceatlas2.js");
+		@Scripts.Render("~/Scripts/libs/jquery-1.9.1.min.js");
+		@Scripts.Render("~/Scripts/libs/bootstrap/js/bootstrap.min.js");
+		@Scripts.Render("~/Scripts/global.js");
+		@Scripts.Render("~/Scripts/rest.js");
+		@Scripts.Render("~/Scripts/graph.js");
+		@Scripts.Render("~/Scripts/main.js");
+		@Scripts.Render("~/Scripts/plugins.js");
+
 
     </body>
 </html>

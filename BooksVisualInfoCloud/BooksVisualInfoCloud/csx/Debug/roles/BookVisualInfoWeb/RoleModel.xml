@@ -30,14 +30,14 @@
     <Property name="Configuration" value="Debug" />
     <Property name="Platform" value="AnyCPU" />
     <Property name="RoleTargetFramework" value="v4.0" />
-    <Property name="OutputDir" value="C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInfoWeb\" />
+    <Property name="OutputDir" value="C:\Users\Elya\MacHack\BooksVisualInfoCloud\BooksVisualInfoCloud\obj\Debug\BookVisualInfoWeb\" />
     <Property name="EntryPoint" value="BookVisualInfoWeb.dll" />
-    <Property name="SourceDir" value="C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\" />
-    <Property name="SitePhysicalPath" value="C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\" />
+    <Property name="SourceDir" value="C:\Users\Elya\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\" />
+    <Property name="SitePhysicalPath" value="C:\Users\Elya\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\" />
     <Property name="TargetRuntimeVersion" value="v4.0" />
   </Properties>
   <Sites>
-    <Site name="Web" physicalDirectory="C:\Users\mhighstead\Documents\GitHub\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\">
+    <Site name="Web" physicalDirectory="C:\Users\Elya\MacHack\BooksVisualInfoCloud\BookVisualInfoWeb\">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
       </Bindings>
