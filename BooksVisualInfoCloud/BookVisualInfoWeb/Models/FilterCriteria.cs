@@ -7,11 +7,11 @@ namespace HackFive.BookVisualInfoWeb.Models
 {
 	public class FilterCriteria
 	{
-		private const int DEFAULT_TAKE = 50;
-		private int BookId { get; set; }
+		public const int DEFAULT_TAKE = 50;
+		public int BookId { get; set; }
 		public long Take { get; set; }
 
-		List<BaseFilterModel> filters { get; set; }
+		public List<BaseFilterModel> filters { get; set; }
 
 		public FilterCriteria() 
 		{

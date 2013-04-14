@@ -12,7 +12,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 {
 	public class HomeController : Controller
 	{
-		public const long MAX_BOOK_COUNT = 160;		//Divisible by 40 to minimize service request overhead and loss.
+		public const long MAX_BOOK_COUNT = 40;		//Divisible by 40 to minimize service request overhead and loss.
 
 		#region "Authentication constants"
 		private const string API_KEY = "AIzaSyAgvKGw_prPT31SbPrx0SsPwnVsOsbBzdw";
@@ -31,7 +31,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 		public ActionResult Index()
 		{
-			GetBooksFromGoogle(null);
+			//GetBooksFromGoogle(null);
 			return View();
 		}
 		[HttpGet]
@@ -59,6 +59,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			return Json(filters, JsonRequestBehavior.AllowGet);
 		}
 
+
 		//private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
 		private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
 		{
@@ -67,6 +68,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			long count = 0;
 			do
 			{
+				string googJson = GetGoogleJson(criteria, count);
 				jsonResult = JsonConvert.DeserializeObject<GoogleJsonModel>(GetGoogleJson(criteria, count));
 				foreach (var result in jsonResult.items)
 				{
@@ -83,7 +85,15 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 					if (result.Authors != null) author = result.Authors.Length > 0 ? String.Join(",", result.Authors) : result.Authors[0];
 					if (result.averageRating != null)	float.TryParse(result.averageRating, out averageRating);
-					if (result.Genres != null && result.Genres.Length > 0)	Enum.TryParse<GenreTypesEnum>(result.Genres[0], out genreType);
+
+					if (result.Genres != null && result.Genres.Length > 0)
+					{
+						newBook.GenreType = getFirstGenre(result.Genres);
+						newBook.Genre = String.Join(",", result.Genres);
+					}
+					
+					newBook.Author = author;
+					newBook.AvgRating = averageRating;
 
 					books.Add(newBook);
 				}
@@ -95,6 +105,18 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			return books;
 		}
 
+		private GenreTypesEnum getFirstGenre(string[] genres)
+		{
+			GenreTypesEnum firstGenre = GenreTypesEnum.Others;
+			foreach (var genre in genres)
+			{
+				if (Enum.TryParse<GenreTypesEnum>(genre, out firstGenre))
+					break;
+			}
+
+			return firstGenre;
+		}
+
 		/// <summary>
 		/// based off criteria will generate a filter string to return appropriate books.  If it's been run previously it will 
 		/// apply the FilterString generated last time.  
@@ -103,8 +125,8 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		{
 			const string googleUriBaseString = 
 				@"https://www.googleapis.com/books/v1/volumes?q={2}&key={0}&fields=totalItems," +
-				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40&orderBy=";
-			const string NULL_INPUT_CASE = "subject:fiction";
+				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40&orderBy=newest";
+			const string NULL_INPUT_CASE = "inpublisher:Chronicle";
 
 			if(criteria == null || criteria.filters.Count == 0)
 				return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, NULL_INPUT_CASE));
@@ -134,7 +156,8 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 				}
 				else if (filter.FilterTypes == FilterTypesEnum.MinAvgRating)
 				{
-					minAvgRating = float.Parse(filter.FilterValue);
+					CustomFilterFlag = true;
+					CustomMinFilterValue = float.Parse(filter.FilterValue);
 				}
 			}
 			string queryString = "";

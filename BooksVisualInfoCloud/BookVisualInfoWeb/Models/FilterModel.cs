@@ -21,12 +21,11 @@ namespace HackFive.BookVisualInfoWeb.Models
 	public enum GenreTypesEnum
 	{ 
 		All = 1,
-		Mystery,
-		SciFi,
-		HistoricalFiction,
+		Fiction,
+		Classics,
+		Fantasy,
+		Humor,
 		History,
-		Biography,
-		Mythology,
 		Others
 	}
 	public enum FilterTypesEnum
@@ -34,8 +33,6 @@ namespace HackFive.BookVisualInfoWeb.Models
 		Genre = 1,
 		Author, 
 		Title,
-		Publisher,
-		MinAvgRating,
-		MaxAvgRating
+		MinAvgRating
 	}
 }

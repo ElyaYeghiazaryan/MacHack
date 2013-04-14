@@ -58,3 +58,14 @@ terms: http://www.goodreads.com/api/terms
 FREEBASE: 
 Freebase .Net API: https://code.google.com/p/freebase-dotnet/
 Book Topics: http://www.freebase.com/book/book?schema=
+
+
+
+Maths!
+- Science 2100
+- Fiction 2140
+- Classics 2113
+- Fantasy 2140
+- Humor 2107
+- Science-Fiction 
+- History
