@@ -5,6 +5,9 @@ using System.Web;
 
 namespace HackFive.BookVisualInfoWeb.Models
 {
+	/// <summary>
+	/// To be used by JQuery to filter what books come back.
+	/// </summary>
 	public class FilterCriteria
 	{
 		public const int DEFAULT_TAKE = 50;

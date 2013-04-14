@@ -7,6 +7,9 @@ using HackFive.BookVisualInfoWeb.Controllers;
 
 namespace UnitTests
 {
+	/// <summary>
+	/// My shame.
+	/// </summary>
 	[TestFixture]
 	public class HomeContollerTests
 	{

@@ -32,34 +32,47 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 		public ActionResult Index()
 		{
-			//GetBooksFromGoogle(null);
 			return View();
 		}
 		
+		/// <summary>
+		/// Was meant to get all our default books from the user's favourites.  I would remove it 
+		/// since the fovourites bookshelf retrieval seems to be broken in the api, but i'm not sure someone's not using it.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetAllBooks()
 		{
 			return Json(GetBooksFromGoogle(null), JsonRequestBehavior.AllowGet);
 		}
 
-
+		/// <summary>
+		/// Eventually this WOULD be an httpPost.  
+		/// </summary>
+		/// <param name="criteria"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetBooks(FilterCriteria criteria)
 		{
-			var bookList = new List<BookModel>();	// No need to actually properly cast this as it's being returned as a json result.
-			if (criteria == null)
-			{
-				return Json(GetBooksFromGoogle(criteria), JsonRequestBehavior.AllowGet);
-			}
-			return Json(bookList, JsonRequestBehavior.AllowGet);
+			return Json(GetBooksFromGoogle(criteria), JsonRequestBehavior.AllowGet);
 		}
 
+		/// <summary>
+		/// This was to be the endpoint to fetch just one book.  
+		/// The view was never made, last minute changes.  It never saw the light of day.
+		/// </summary>
+		/// <param name="criteria"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetBookData(FilterCriteria criteria)
 		{
 			//var book = new BookModel();
 			return Json(GetBooksFromGoogle(criteria), JsonRequestBehavior.AllowGet);
 		}
+		/// <summary>
+		/// Retrieves the filters and returns their names.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetFilters()
 		{
@@ -73,6 +86,11 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			return Json(enumValueNames, JsonRequestBehavior.AllowGet);
 		}
 
+		/// <summary>
+		/// Obsolete: No longer grouping genres.  Using strings because google 
+		/// has too many genres to do this properly.  There is no official list anywhere.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetGenres()
 		{
@@ -87,7 +105,13 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		}
 
 
-		//private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
+		/// <summary>
+		/// Makes a call to the google API, parses the google model and stores it in our own.  
+		/// This only makes sense due to min rating, and when we tried to simplify and group genres.
+		/// Neither of these are done now and it's obsolete as a result.
+		/// </summary>
+		/// <param name="criteria"></param>
+		/// <returns></returns>
 		private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
 		{
 			var books = new List<BookModel>();
@@ -136,6 +160,12 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			return books;
 		}
 
+		/// <summary>
+		/// Left over from when we wanted to reduce and simplify the genres.  Some books/publishers support multiple genres.
+		/// Some don't have any.
+		/// </summary>
+		/// <param name="genres"></param>
+		/// <returns></returns>
 		private GenreTypesEnum getFirstGenre(string[] genres)
 		{
 			GenreTypesEnum firstGenre = GenreTypesEnum.Others;
@@ -167,7 +197,6 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 			string title, categories, authors;
 			title = categories = authors = "";
-			float minAvgRating = 0;
 			
 			foreach (var filter in criteria.filters)
 			{
@@ -212,6 +241,11 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 			return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, FilterString));
 		}
 		
+		/// <summary>
+		/// Simple wrapper for making a HTTPGet request
+		/// </summary>
+		/// <param name="uri"></param>
+		/// <returns></returns>
 		public string MakeGetRequest(string uri)
 		{
 			var request = (HttpWebRequest)WebRequest.Create(uri);

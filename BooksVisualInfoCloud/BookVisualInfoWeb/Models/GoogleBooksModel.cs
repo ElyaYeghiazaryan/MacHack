@@ -5,6 +5,9 @@ using System.Web;
 
 namespace HackFive.BookVisualInfoWeb.Models
 {
+	/// <summary>
+	/// A class used to simplify deserializing the json google produces for the books.
+	/// </summary>
 	public class GoogleBooksModel
 	{
 		public string id { get; set; }
