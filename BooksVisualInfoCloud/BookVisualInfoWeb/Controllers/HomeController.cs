@@ -55,8 +55,27 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		[HttpGet]
 		public JsonResult GetFilters()
 		{
-			var filters = new List<BaseFilterModel>();
-			return Json(filters, JsonRequestBehavior.AllowGet);
+			var enumValues = Enum.GetValues(typeof(FilterTypesEnum));
+			List<string> enumValueNames = new List<string>();
+
+			foreach (var value in enumValues)
+			{
+				enumValueNames.Add(((FilterTypesEnum)value).ToString());
+			}
+			return Json(enumValueNames, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		public JsonResult GetGenres()
+		{
+			var enumValues = Enum.GetValues(typeof(GenreTypesEnum));
+			List<string> enumValueNames = new List<string>();
+
+			foreach (var value in enumValues)
+			{
+				enumValueNames.Add(((GenreTypesEnum)value).ToString());
+			}
+			return Json(enumValueNames, JsonRequestBehavior.AllowGet);
 		}
 
 
