@@ -132,13 +132,14 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 
 		private GenreTypesEnum getFirstGenre(string[] genres)
 		{
-			GenreTypesEnum firstGenre = GenreTypesEnum.Others;
+			GenreTypesEnum firstGenre;
 			foreach (var genre in genres)
 			{
-				if (Enum.TryParse<GenreTypesEnum>(genre, out firstGenre))
+				if (Enum.TryParse<GenreTypesEnum>(genre.Replace(' ', '_'), out firstGenre))
 					break;
 			}
-
+			if(firstGenre == 0)
+				 return GenreTypesEnum.Others
 			return firstGenre;
 		}
 

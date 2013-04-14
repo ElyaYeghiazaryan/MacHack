@@ -26,6 +26,7 @@ namespace HackFive.BookVisualInfoWeb.Models
 		Fantasy,
 		Humor,
 		History,
+		Juvenile_Fiction,
 		Others
 	}
 	public enum FilterTypesEnum
