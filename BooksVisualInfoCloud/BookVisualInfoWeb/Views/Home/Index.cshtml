@@ -1,24 +1,111 @@
-﻿      <div class="container-fluid">
-          <div class="row-fluid" id="main_container">
-            <div class="span1" id="left_scroller" style="background-color:#C8C8C8">
-                
+﻿     <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="mainNavBkgd"></div>
+        <div id="wrapper">
+            <div id="mainNav">
+                <a href="#"><div id="bookmark">Yeah</div></a>
+                <ul id="navList">
+                    <li><a href="#">Favorites</a></li>
+                    <li><a href="#">YeahBuddy</a></li>
+                </ul>
+                <img id="logo" src='@Url.Content("Images/assets/logo.png")'>
             </div>
-            <div class="span10">
-                <div class="span11" id="top_scroller" style="background-color:#E8E8E8 ">
+            <div id="graph_container"></div>
+            <div id="appliedFilters">
+                <ul class="nav nav-pills">
+                  <li class="active">
+                    <a href="#">Home</a>
+                  </li>
+                  <li><a href="#">...</a></li>
+                  <li><a href="#">...</a></li>
+                </ul>
+            </div>
+            <div id="filters">
+                <label>Genre</label>
+                <div class="input-prepend">
+                    <span class="add-on"><a href="#" class="icon-ok" data-bind="click: filterClicked"></a></span>
+                    <input class="span2" type="text" placeholder="Type something...">
                 </div>
-                <div class="span10" id="graph_container">
-                    
+                <label>Author</label>
+                <div class="input-prepend">
+                    <span class="add-on"><a href="#" class="icon-ok" data-bind="click: filterClicked"></a></span>
+                    <input class="span2" type="text" placeholder="Type something...">
+                </div>
+                <label>Title</label>
+                <div class="input-prepend">
+                    <span class="add-on"><a href="#" class="icon-ok" data-bind="click: filterClicked"></a></span>
+                    <input class="span2" type="text" placeholder="Type something...">
                 </div>
             </div>
-          </div>
+            <div class="button" data-bind="click: toggleDrawer">></div> 
         </div>
 
-	@section scripts {
-		<script src='@Url.Content("~/Scripts/libs/bootstrap/js/bootstrap.min.js")'></script>
-	}
-
-
+	
 	@section styles
 	{
 		<link rel="stylesheet" href='@Url.Content("~/Scripts/libs/bootstrap/css/bootstrap.min.css")'>
 	}
+
+		 <script>
+		  	function init() {
+		  		var graph_container = document.getElementById('graph_container');
+		  		var sigInst = sigma.init(graph_container).drawingProperties({
+		  			defaultLabelColor: '#fff'
+		  		});
+		  		// Generate a random graph with :
+		  		//   . N nodes
+		  		//   . E edges
+		  		//   . C clusters
+		  		//   . d the proportion of edges that connect two nodes
+		  		//     from the same cluster
+		  		var i,
+                N = 500,
+                E = 3000,
+                C = 10,
+                d = 0.5,
+                clusters = [];
+
+		  		for (i = 0; i < C; i++) {
+		  			clusters.push({
+		  				'id': i,
+		  				'nodes': [],
+		  				'color': 'rgb(' + Math.round(Math.random() * 256) + ',' +
+                              Math.round(Math.random() * 256) + ',' +
+                              Math.round(Math.random() * 256) + ')'
+		  			});
+		  		}
+
+		  		for (i = 0; i < N; i++) {
+		  			var cluster = clusters[(Math.random() * C) | 0];
+		  			sigInst.addNode('n' + i, {
+		  				'x': Math.random(),
+		  				'y': Math.random(),
+		  				'size': 0.5 + 4.5 * Math.random(),
+		  				'color': cluster['color'],
+		  				'cluster': cluster['id']
+		  			});
+		  			cluster.nodes.push('n' + i);
+		  		}
+
+		  		for (i = 0; i < E; i++) {
+		  			if (Math.random() < 1 - d) {
+		  				sigInst.addEdge(i, 'n' + (Math.random() * N | 0), 'n' + (Math.random() * N | 0));
+		  			} else {
+		  				var cluster = clusters[(Math.random() * C) | 0], n = cluster.nodes.length;
+		  				sigInst.addEdge(i, cluster.nodes[Math.random() * n | 0], cluster.nodes[Math.random() * n | 0]);
+		  			}
+		  		}
+
+		  		// Start the ForceAtlas2 algorithm
+		  		// (requires "sigma.forceatlas2.js" to be included)
+		  		sigInst.startForceAtlas2();
+		  		var isRunning = true;
+		  	}
+        </script>
+	
+
+
+	
