@@ -45,6 +45,9 @@ startIndex: starts at 0
 orderBy: relavence, newest
 printType: all, books, magazines
 
+Google API: 
+###########
+- Get users bookshelves: GET https://www.googleapis.com/books/v1/users/1112223334445556677/bookshelves&key=yourAPIKey
 
 References: 
 ###########
