@@ -6,13 +6,28 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using HackFive.BookVisualInfoWeb.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace HackFive.BookVisualInfoWeb.Controllers
 {
 	public class HomeController : Controller
 	{
+		public const long MAX_BOOK_COUNT = 160;		//Divisible by 40 to minimize service request overhead and loss.
+
+		#region "Authentication constants"
 		private const string API_KEY = "AIzaSyAgvKGw_prPT31SbPrx0SsPwnVsOsbBzdw";
-		private const long MAX_BOOK_COUNT = 150;
+		private const string UID = "101555039325212133703";		//User id to populate default books and favourites
+		#endregion
+
+		#region "Google Search API Terms"
+		private const string SF_TITLE_QUERY = "intitle:{0}";
+		private const string SF_AUTHOR_QUERY = ",inauthor:{0}";
+		private const string SF_CATEGORY_QUERY = ",subject:{0}";
+		#endregion
+
+		private bool CustomFilterFlag { get; set; }
+		private float CustomMinFilterValue { get; set;}
+		private string FilterString { get; set; }
 
 		public ActionResult Index()
 		{
@@ -74,23 +89,66 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 				}
 				count += jsonResult.items.Length;
 
-			} while (jsonResult != null && count < jsonResult.totalItems && count < MAX_BOOK_COUNT);
+			//Differentiation between books.Count and count is on purpose.
+			} while (jsonResult != null && count < jsonResult.totalItems && books.Count < MAX_BOOK_COUNT);
 
 			return books;
 		}
 
+		/// <summary>
+		/// based off criteria will generate a filter string to return appropriate books.  If it's been run previously it will 
+		/// apply the FilterString generated last time.  
+		/// </summary>
 		private string GetGoogleJson(FilterCriteria criteria, long startIndex = 0)
 		{
 			const string googleUriBaseString = 
 				@"https://www.googleapis.com/books/v1/volumes?q={2}&key={0}&fields=totalItems," +
-				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40";
-			
-			//TODO add logic for search criteria.
-			const string TEST_INPUT = "flowers+inauthor:keyes";
+				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40&orderBy=";
+			const string NULL_INPUT_CASE = "subject:fiction";
 
-			return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, TEST_INPUT));
+			if(criteria == null || criteria.filters.Count == 0)
+				return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, NULL_INPUT_CASE));
+			if(!String.IsNullOrWhiteSpace(FilterString))
+				return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, FilterString));
+
+
+			string title, categories, authors;
+			title = categories = authors = "";
+			float minAvgRating = 0;
 			
-			
+			foreach (var filter in criteria.filters)
+			{
+				if(filter.FilterTypes == FilterTypesEnum.Genre)
+				{
+					if(String.IsNullOrWhiteSpace(categories))
+						categories = filter.FilterValue;
+					else
+						categories += "," + filter.FilterValue;
+				}
+				else if(filter.FilterTypes == FilterTypesEnum.Author)
+				{
+					if(String.IsNullOrWhiteSpace(authors))
+						authors = filter.FilterValue;
+					else
+						authors = "," + filter.FilterValue;
+				}
+				else if (filter.FilterTypes == FilterTypesEnum.MinAvgRating)
+				{
+					minAvgRating = float.Parse(filter.FilterValue);
+				}
+			}
+			string queryString = "";
+			if(title != null)
+				queryString = String.Format(SF_TITLE_QUERY, title);
+			if (authors != null)
+				queryString = String.Format(SF_AUTHOR_QUERY, authors);
+			if (categories != null)
+				queryString = String.Format(SF_CATEGORY_QUERY, categories);
+
+			queryString = queryString.TrimStart(',');
+			FilterString = queryString;
+
+			return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, FilterString));
 		}
 		
 		public string MakeGetRequest(string uri)
