@@ -12,7 +12,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 {
 	public class HomeController : Controller
 	{
-		public const long MAX_BOOK_COUNT = 40;		//Divisible by 40 to minimize service request overhead and loss.
+		public const long MAX_BOOK_COUNT = 200;		//Divisible by 40 to minimize service request overhead and loss.
 
 		#region "Authentication constants"
 		private const string API_KEY = "AIzaSyAgvKGw_prPT31SbPrx0SsPwnVsOsbBzdw";
@@ -23,6 +23,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		private const string SF_TITLE_QUERY = "intitle:{0}";
 		private const string SF_AUTHOR_QUERY = ",inauthor:{0}";
 		private const string SF_CATEGORY_QUERY = ",subject:{0}";
+		private const string SF_PUBLISHER_QUERY = "inpublisher:{0}";
 		#endregion
 
 		private bool CustomFilterFlag { get; set; }
@@ -91,10 +92,13 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		{
 			var books = new List<BookModel>();
 			GoogleJsonModel jsonResult;
+			List<float> ratings = new List<float>();
 			long count = 0;
 			do
 			{
 				string googJson = GetGoogleJson(criteria, count);
+
+				//TODO: There seems to a be a bug with the deserializer not pulling the averageRating.  I don't know why
 				jsonResult = JsonConvert.DeserializeObject<GoogleJsonModel>(GetGoogleJson(criteria, count));
 				foreach (var result in jsonResult.items)
 				{
@@ -106,11 +110,13 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 						Title = result.Title,
 					};
 					float averageRating = 0;
-					GenreTypesEnum genreType = GenreTypesEnum.All;
+					
 					string author = "Unknown";
+					if (result.averageRating != null) 
+						ratings.Add((float)result.averageRating);
 
 					if (result.Authors != null) author = result.Authors.Length > 0 ? String.Join(",", result.Authors) : result.Authors[0];
-					if (result.averageRating != null)	float.TryParse(result.averageRating, out averageRating);
+					if (result.averageRating != null) averageRating = (float)result.averageRating;
 
 					if (result.Genres != null && result.Genres.Length > 0)
 					{
@@ -148,12 +154,12 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		/// </summary>
 		private string GetGoogleJson(FilterCriteria criteria, long startIndex = 0)
 		{
-			const string googleUriBaseString = 
+			const string googleUriBaseString =
 				@"https://www.googleapis.com/books/v1/volumes?q={2}&key={0}&fields=totalItems," +
-				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40&orderBy=newest";
-			const string NULL_INPUT_CASE = "inpublisher:Chronicle";
+				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40";	//&orderBy=newest";
+			const string NULL_INPUT_CASE = "inpublisher:Houghton Mifflin Harcourt";
 
-			if(criteria == null || criteria.filters.Count == 0)
+			if (criteria == null || criteria.filters.Count == 0)
 				return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, NULL_INPUT_CASE));
 			if(!String.IsNullOrWhiteSpace(FilterString))
 				return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, FilterString));
@@ -183,6 +189,13 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 				{
 					CustomFilterFlag = true;
 					CustomMinFilterValue = float.Parse(filter.FilterValue);
+				}
+				else if (filter.FilterTypes == FilterTypesEnum.Title)
+				{
+					if (string.IsNullOrWhiteSpace(title))
+						title = filter.FilterValue;
+					else
+						title = "," + filter.FilterValue;
 				}
 			}
 			string queryString = "";
