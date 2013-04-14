@@ -8,26 +8,32 @@
 	 @RenderSection("styles", required: false)
 @*	 @Styles.Render("~/Script/libs/bootstrap/css")*@
     </head>
-    <body onload="init()">
+    <body >
         
         @RenderBody()
-    @*  
-		@Scripts.Render("~/Scripts/libs")
+
+	@*  @Scripts.Render("~/Scripts/libs")
 		@Scripts.Render("~/Scripts/main")*@
 
-		@Scripts.Render("~/Scripts/libs/underscore.js");
-		@Scripts.Render("~/Scripts/libs/knockout.js");
-		@Scripts.Render("~/Scripts/libs/modernizr-2.6.2.min.js");
-		@Scripts.Render("~/Scripts/libs/sigma.min.js");
-		@Scripts.Render("~/Scripts/libs/sigma.forceatlas2.js");
-		@Scripts.Render("~/Scripts/libs/jquery-1.9.1.min.js");
-		@Scripts.Render("~/Scripts/libs/bootstrap/js/bootstrap.min.js");
-		@Scripts.Render("~/Scripts/global.js");
-		@Scripts.Render("~/Scripts/rest.js");
-		@Scripts.Render("~/Scripts/graph.js");
-		@Scripts.Render("~/Scripts/main.js");
-		@Scripts.Render("~/Scripts/plugins.js");
+		<script type="text/javascript">
+			var siteRoot = '@Url.Content("~/")';
+		</script>
 
+		@Scripts.Render("~/Scripts/libs/underscore.js")
+		@Scripts.Render("~/Scripts/libs/knockout.js")
+		@Scripts.Render("~/Scripts/libs/modernizr-2.6.2.min.js")
+		@Scripts.Render("~/Scripts/libs/sigma.min.js")
+		@Scripts.Render("~/Scripts/libs/sigma.forceatlas2.js")
+		@Scripts.Render("~/Scripts/libs/jquery-1.9.1.min.js")
+		@Scripts.Render("~/Scripts/libs/bootstrap/js/bootstrap.min.js")
+		@Scripts.Render("~/Scripts/global.js")
+		@Scripts.Render("~/Scripts/rest.js")
+		@Scripts.Render("~/Scripts/graph.js")
+		@Scripts.Render("~/Scripts/main.js")
+		@Scripts.Render("~/Scripts/plugins.js")
+		
+
+		
 
     </body>
 </html>
