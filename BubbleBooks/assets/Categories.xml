@@ -1,0 +1,20 @@
+<model>
+  <header title="Genres">
+    <categoryNames name="Detective">
+    </categoryNames>
+    <categoryNames name="History">
+    </categoryNames>
+  </header>
+  <header title="Authors">
+   <categoryNames name="Sevak">
+    </categoryNames>
+    <categoryNames name="Pushkin">
+    </categoryNames>
+  </header>
+  <header title="Date">
+   <categoryNames name="1991">
+    </categoryNames>
+    <categoryNames name="2000">
+    </categoryNames>
+  </header>
+</model>

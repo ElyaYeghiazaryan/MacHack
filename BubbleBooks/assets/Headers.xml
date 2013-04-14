@@ -1,0 +1,10 @@
+<model>
+  <header title="Headers">
+    <categoryNames name="Genres">
+    </categoryNames>
+    <categoryNames name="Authors">
+    </categoryNames>
+    <categoryNames name="Date">
+    </categoryNames>
+  </header>
+</model>
