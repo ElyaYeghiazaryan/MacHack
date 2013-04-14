@@ -138,8 +138,8 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 				if (Enum.TryParse<GenreTypesEnum>(genre.Replace(' ', '_'), out firstGenre))
 					break;
 			}
-			if(firstGenre == 0)
-				 return GenreTypesEnum.Others
+			if (firstGenre == 0)
+				return GenreTypesEnum.Others;
 			return firstGenre;
 		}
 
