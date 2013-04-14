@@ -1,10 +1,10 @@
-﻿using System.Net;
+﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using HackFive.BookVisualInfoWeb.Models;
 using System.IO;
-using System;
+using System.Net;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using HackFive.BookVisualInfoWeb.Models;
 using Newtonsoft.Json;
 
 namespace HackFive.BookVisualInfoWeb.Controllers
@@ -12,6 +12,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 	public class HomeController : Controller
 	{
 		private const string API_KEY = "AIzaSyAgvKGw_prPT31SbPrx0SsPwnVsOsbBzdw";
+		private const long MAX_BOOK_COUNT = 150;
 
 		public ActionResult Index()
 		{
@@ -44,25 +45,52 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		}
 
 		//private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
-		private string GetBooksFromGoogle(FilterCriteria criteria)
+		private List<BookModel> GetBooksFromGoogle(FilterCriteria criteria)
 		{
-			const string googleUriBaseString = @"https://www.googleapis.com/books/v1/volumes?q={1}&key={0}&fields=totalItems,items(volumeInfo(title,authors,publishedDate,categories))";
+			var books = new List<BookModel>();
+			GoogleJsonModel jsonResult;
+			long count = 0;
+			do
+			{
+				jsonResult = JsonConvert.DeserializeObject<GoogleJsonModel>(GetGoogleJson(criteria, count));
+				foreach (var result in jsonResult.items)
+				{
+					if (result.Title == null) continue;		//Yes, This happened.
 
-			string googleUri = String.Format(googleUriBaseString, API_KEY, BuildSearchString(criteria));
+					var newBook = new BookModel
+					{
+						Id = result.id,
+						Title = result.Title,
+					};
+					float averageRating = 0;
+					GenreTypesEnum genreType = GenreTypesEnum.All;
+					string author = "Unknown";
 
-			string googJson = MakeGetRequest(googleUri);
-			JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+					if (result.Authors != null) author = result.Authors.Length > 0 ? String.Join(",", result.Authors) : result.Authors[0];
+					if (result.averageRating != null)	float.TryParse(result.averageRating, out averageRating);
+					if (result.Genres != null && result.Genres.Length > 0)	Enum.TryParse<GenreTypesEnum>(result.Genres[0], out genreType);
 
-			//var jsonResult = (GoogleJsonModel)jsonSerializer.DeserializeObject(googJson);
-			var jsonResult = JsonConvert.DeserializeObject<GoogleJsonModel>(googJson);
+					books.Add(newBook);
+				}
+				count += jsonResult.items.Length;
 
-			return googJson;
+			} while (jsonResult != null && count < jsonResult.totalItems && count < MAX_BOOK_COUNT);
+
+			return books;
 		}
 
-		private string BuildSearchString(FilterCriteria criteria)
+		private string GetGoogleJson(FilterCriteria criteria, long startIndex = 0)
 		{
+			const string googleUriBaseString = 
+				@"https://www.googleapis.com/books/v1/volumes?q={2}&key={0}&fields=totalItems," +
+				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40";
+			
+			//TODO add logic for search criteria.
 			const string TEST_INPUT = "flowers+inauthor:keyes";
-			return TEST_INPUT;
+
+			return MakeGetRequest(String.Format(googleUriBaseString, API_KEY, startIndex, TEST_INPUT));
+			
+			
 		}
 		
 		public string MakeGetRequest(string uri)
