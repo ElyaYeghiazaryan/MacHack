@@ -117,7 +117,6 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 						newBook.GenreType = getFirstGenre(result.Genres);
 						newBook.Genre = String.Join(",", result.Genres);
 					}
-					
 					newBook.Author = author;
 					newBook.AvgRating = averageRating;
 
