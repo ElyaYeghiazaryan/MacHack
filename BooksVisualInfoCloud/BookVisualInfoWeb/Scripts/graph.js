@@ -49,7 +49,7 @@
             sigInst.addNode(book.Id, {
                 'x': Math.random(),
                 'y': Math.random(),
-                'size': 1.5 + 4.5 * Math.random(),
+                'size': 7.0 + 4.5 * Math.random(),
                 'color': 'rgb(' + Math.round(Math.random() * 256) + ',' +
                           Math.round(Math.random() * 256) + ',' +
                           Math.round(Math.random() * 256) + ')',
