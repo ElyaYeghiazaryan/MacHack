@@ -103,7 +103,7 @@ namespace HackFive.BookVisualInfoWeb.Controllers
 		{
 			const string googleUriBaseString = 
 				@"https://www.googleapis.com/books/v1/volumes?q={2}&key={0}&fields=totalItems," +
-				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40&orderBy=";
+				@"items(id,volumeInfo(title,averageRating,authors,publishedDate,categories))&startIndex={1}&maxResults=40";
 			const string NULL_INPUT_CASE = "subject:fiction";
 
 			if(criteria == null || criteria.filters.Count == 0)
