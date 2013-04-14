@@ -29,7 +29,8 @@
 
     var graph_container = document.getElementById('graph_container');
     var sigInst = sigma.init(graph_container).drawingProperties({
-        defaultLabelColor: '#fff'
+        defaultLabelColor: '#fff',
+        labelThreshold: 40
     });
 
     App.sigma = {};
@@ -56,8 +57,6 @@
                 'label': book.Title
             });
             sigInst.draw();
-
-
         }
     }
 
@@ -112,7 +111,7 @@
                 });
             }
         });
-
+        
         sigInst.circularLayout(all_nodes);
     }
 
