@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HackFive.BookVisualInfoWeb.Models
 {
-	public abstract class BaseFilterModel
+	public class BaseFilterModel
 	{
 		public string ImagePath { get; set; }
 		public string FilterName { get; set; }
@@ -16,7 +16,7 @@ namespace HackFive.BookVisualInfoWeb.Models
 			return FilterName;
 		}
 
-		public abstract string FilterValue { get; set; }		//String because it's use by a restful service anyways.
+		public string FilterValue { get; set; }		//String because it's use by a restful service anyways.
 	}
 	public enum GenreTypesEnum
 	{ 

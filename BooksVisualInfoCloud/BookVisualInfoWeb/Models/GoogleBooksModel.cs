@@ -9,7 +9,7 @@ namespace HackFive.BookVisualInfoWeb.Models
 	{
 		public string id { get; set; }
 		public VolumeInfo volumeInfo { get; set; }
-		public string averageRating { get; set; }
+		public float? averageRating { get; set; }
 
 		
 		public string Title { get { return volumeInfo.title; } }

@@ -8,7 +8,9 @@ namespace HackFive.BookVisualInfoWeb.Models
 	/// <summary>
 	/// Filters by Genre
 	/// </summary>
-	public class GenreFilter : BaseFilterModel
+	
+	/* Obsoletede due to change last minute
+	 * public class GenreFilter : BaseFilterModel
 	{
 		public override string FilterValue
 		{
@@ -39,5 +41,5 @@ namespace HackFive.BookVisualInfoWeb.Models
 		{
 			return String.Concat(base.ToString(), ".", GenreName);
 		}
-	}
+	}*/
 }
